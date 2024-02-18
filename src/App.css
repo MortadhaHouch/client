@@ -1,0 +1,257 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: 0.25s;
+}
+html,body{
+    overscroll-behavior: none;
+}
+:root{
+    --main-width:100vw;
+    --main-height:100vh;
+    --logo-width:50px;
+    --logo-height:50px;
+    --color-facebook:rgb(59, 89, 152);
+    --color-reddit:rgb(255, 69, 0);
+    --color-twitter:rgb(0,0,0);
+    --color-instagram:rgb(195, 42, 163);
+    --color-tiktok:rgb(1, 1, 1);
+    --color-whatsapp:rgb(7, 94, 84);
+}
+body{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-x: hidden;
+}
+#root{
+    width: var(--main-width);
+    height: fit-content;
+    min-height: var(--main-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+header div img.logo{
+    width: var(--logo-width);
+    height: var(--logo-height);
+}
+header div ul .nav-item{
+    position: relative;
+}
+header nav div ul .nav-item::before{
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    width: 0;
+    background-color: white;
+    height: 2px;
+}
+header div ul .nav-item:hover::before{
+    width: 100%;
+    transition:width .25s;
+}
+header nav div ul .nav-item a.active{
+    border-bottom: 2px solid white;
+}
+main{
+    padding-block: 100px;
+    width: var(--main-width);
+    height: fit-content;
+    min-height: var(--main-height);
+    background-repeat: no-repeat;
+    object-fit: contain;
+    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+main form{
+    backdrop-filter: blur(10px);
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    border-radius: 15px;
+    padding: 15px;
+}
+main form div textarea{
+    resize: none;
+}
+main.loading{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+main.loading.paused{
+    clip-path: circle(0% at 50% 50%);
+    pointer-events: none;
+}
+main.loading.played{
+    clip-path: circle(100% at 50% 50%);
+    pointer-events: all;
+}
+main div.tab-content div.tab-pane{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+}
+main div.tab-content div.tab-pane div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    border-radius: 15px;
+    width: 300px;
+    height: 400px;
+    overflow: hidden;
+    cursor: pointer;
+}
+main div.tab-content div.tab-pane div img{
+    width: 100%;
+    height: 100%;
+}
+main div.tab-content div.tab-pane div svg{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px;
+    border-radius: 50%;
+    stroke-width: 2px;
+}
+main div.tab-content div.tab-pane div svg:hover{
+    background-color: aliceblue;
+    stroke: magenta;
+}
+main div.tab-content div.tab-pane div:hover img{
+    transform: scale(1.1);
+    transition-timing-function: ease-in-out;
+    transition: 1s;
+}
+main.home{
+    width: 100vw;
+    height:fit-content;
+    gap: 30px;
+}
+main.home section{
+    width: 100vw;
+    height:100vh;
+    position: relative;
+}
+main.home section:first-child video{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+main.home section:first-child div{
+    position: absolute;
+    inset: auto;
+    background-attachment: fixed;
+}
+main.home section:first-child div button{
+    padding: 15px 30px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 3px dashed white;
+    color: white;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+main.home section:first-child div button:hover{
+    border-style:solid;
+}
+div.swiper{
+    position: relative;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img.background{
+    width: 100vw;
+    height: 100vh;
+    filter: blur(10px);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+img.image-slide{
+    width: 450px;
+    aspect-ratio: 1;
+}
+path{
+    stroke: aqua;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+footer div svg{
+    cursor: pointer;
+}
+footer div svg:nth-child(1):hover{
+    filter: drop-shadow(0px 0px 5px var(--color-facebook));
+    transform: scale(1.25);
+}
+footer div svg:nth-child(2):hover{
+    filter: drop-shadow(0px 0px 5px var(--color-twitter));
+    transform: scale(1.25);
+}
+footer div svg:nth-child(3):hover{
+    filter: drop-shadow(0px 0px 5px var(--color-reddit));
+    transform: scale(1.25);
+}
+footer div svg:nth-child(4):hover{
+    filter: drop-shadow(0px 0px 5px var(--color-instagram));
+    transform: scale(1.25);
+}
+footer div svg:nth-child(5):hover{
+    filter: drop-shadow(0px 0px 5px var(--color-tiktok));
+    transform: scale(1.25);
+}
+footer div svg:nth-child(6):hover{
+    filter: drop-shadow(0px 0px 5px var(--color-whatsapp));
+    transform: scale(1.25);
+}
+main.error img{
+    mix-blend-mode: color-burn;
+}
+.mySwiper{
+    width: 900px;
+    height: 900px;
+}
+div.item{
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
