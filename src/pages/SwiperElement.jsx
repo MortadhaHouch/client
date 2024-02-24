@@ -1,11 +1,15 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, } from 'swiper/react';
 import { EffectCoverflow, Pagination,Navigation,Parallax,A11y,Autoplay } from 'swiper/modules';
+import { FaArrowRightLong } from "react-icons/fa6";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import { useState } from 'react';
+import Map from "./Map"
 export default function SwiperElement(props) {
     let [linkIndex,setLinkIndex] = useState(0);
+    let [swiper,setSwiper] = useState(null);
     return (
         <>
             <Swiper
@@ -20,20 +24,38 @@ export default function SwiperElement(props) {
                     slideShadows: true,
                     
                 }}
-                pagination={{clickable:true}}
-                navigation={true}
+                pagination={{clickable:true,dynamicBullets:true}}
+                navigation={{prevEl:".previous",nextEl:".next"}}
                 modules={[EffectCoverflow, Pagination,Navigation,Parallax,A11y,Autoplay]}
                 className="h-100 w-100"
                 resizeObserver={true}
+                onSwiper={(swiper)=>{
+                    setSwiper(swiper)
+                }}
                 onSlideChange={(swiper)=>{
                     setLinkIndex(swiper.activeIndex);
                 }}
             >
+                <div className="btn-group navigation-button">
+                    <button className="previous" onClick={()=>{
+                        swiper.slidePrev()
+                    }}><FaArrowLeftLong/></button>
+                    <button className="next" onClick={()=>{
+                        swiper.slideNext()
+                    }}><FaArrowRightLong/></button>
+                </div>
             {
                 props.images.map((item,index)=>{
                     return(
                         <SwiperSlide key={index}>
                             <div className="d-flex justify-content-center align-items-center">
+                                <div className='description'>
+                                    <p className="card-title text-info text-lg-start">DESTINATION</p>
+                                    <h2 className="text-light form-control-lg">{props.stateName}</h2>
+                                </div>
+                                <div className="d-flex justify-content-center align-items-center destination-map">
+                                    <Map fill={props.fill} stateName={props.stateName} className="active-path"/>
+                                </div>
                                 <img src={item} alt="image" className="image-slide"/>
                             </div>
                         </SwiperSlide>

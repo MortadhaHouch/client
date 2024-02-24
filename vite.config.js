@@ -4,9 +4,9 @@ export default defineConfig({
   plugins: [react()],
   // server:{
   //   proxy:{
-  //     "/home/user":{
+  //     "/user":{
   //       target:"http://localhost:5000",
-  //       changeOrigin:true
+  //       changeOrigin:true,
   //     }
   //   }
   // }

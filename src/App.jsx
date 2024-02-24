@@ -1,14 +1,14 @@
 import './App.css'
 import {HomeLayout} from "../src/pages/HomeLayout"
 import {CookiesProvider} from "react-cookie"
-import { createContext } from 'react'
+import { createContext, useState } from 'react'
 let loginState = createContext();
 function App() {
-  let isLoggedIn = false;
+  let [isLoggedIn,setIsloggedIn] = useState(false);
   return (
     <>
       <CookiesProvider>
-        <loginState.Provider value={isLoggedIn}>
+        <loginState.Provider value={{isLoggedIn,setIsloggedIn}}>
           <HomeLayout/>
         </loginState.Provider>
       </CookiesProvider>

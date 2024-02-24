@@ -1,13 +1,12 @@
-import {NavLink} from "react-router-dom"
+import {NavLink, redirect} from "react-router-dom"
 import Logo from "../assets/4202194-removebg-preview.png"
 import {gsapAnimationHandler} from "../../utils/animation"
-// import { useContext, useState } from "react"
-// import { loginState } from "../App"
-// import { useCookies } from "react-cookie"
+import { useContext } from "react"
+import { loginState } from "../App"
+import { useCookies } from "react-cookie"
 export const Header = () => {
-    // let [isLoggedIn,setIsloggedIn] = useState(false);
-    // let {loginStateContext} = useContext(loginState);
-    // let [cookies,setCookie,removeCookie]=useCookies(["user_data"]);
+    let {isLoggedIn,setIsloggedIn} = useContext(loginState);
+    let [cookies,setCookie,removeCookie]=useCookies(["json_token"]);
     return (
         <header className="container-fluid bg-dark text-primary d-flex justify-content-evenly align-items-start">
             <div className='d-flex justify-content-between align-items-center g-1 w-auto'>
@@ -21,7 +20,7 @@ export const Header = () => {
                     data-bs-toggle="collapse"
                     data-bs-target="#collapsibleNavId"
                     onClick={()=>{
-                        gsapAnimationHandler(".nav-item",{opacity:0,stagger:0.25,x:-10},{opacity:1,stagger:0.25,x:0},true)
+                        gsapAnimationHandler(".nav-item",{opacity:0,stagger:0.25,x:-20},{opacity:1,stagger:0.25,x:0},true)
                     }}
                 ><span className="navbar-toggler-icon"></span></button>
                 <div className="collapse navbar-collapse" id="collapsibleNavId">
@@ -38,12 +37,27 @@ export const Header = () => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/faq">faq</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/user/login">login</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/user/signup">signup</NavLink>
-                        </li>
+                        {
+                            cookies.json_token?(
+                                <button className="btn btn-danger" onClick={()=>{
+                                    setIsloggedIn(false);
+                                    removeCookie("json_token",{
+                                        maxAge:0,
+                                        path:"/"
+                                    })
+                                    location.assign("/home")
+                                }}>logout</button>
+                            ):(
+                                <>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/user/login">login</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/user/signup">signup</NavLink>
+                                    </li>
+                                </>
+                            )
+                        }
                     </ul>
                 </div>
             </nav>
